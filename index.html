@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Amazing Plant Fact Generator</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+
+    #facts-container {
+      width: 80%;
+      max-width: 600px;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transform: translateY(-20px);
+      opacity: 0;
+      animation: slideIn 1s forwards;
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 1.1em;
+      background-color: #4CAF50; /* Green color for plants */
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #367C39; /* Darker green on hover */
+    }
+
+    @keyframes slideIn {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Amazing Plant Fact Generator</h1> 
+  <button id="generate-btn">Generate Fact</button> 
+  <div id="facts-container">
+  </div>
+
+  <script>
+    document.getElementById('generate-btn').addEventListener('click', displayRandomFact);
+
+    function displayRandomFact() {
+      const factsContainer = document.getElementById("facts-container");
+      factsContainer.innerHTML = ''; // Clear previous facts
+
+      const plantFacts = [
+        "There are over 298,000 species of plants on Earth.",
+        "The tallest tree ever recorded was an Australian eucalyptus - over 400 feet tall!",
+        "90% of the food humans eat comes from just 30 plants.",
+        "Some plants, like sunflowers, can track the movement of the sun.",
+        "The Amazon rainforest produces 20% of the world's oxygen.",
+        "Bamboo is the fastest-growing woody plant in the world; some species can grow 35 inches in a single day.",
+        "The world's smallest flowering plant is Wolffia angusta, which is smaller than the head of a pin.",
+        "The leaves of the Mimosa pudica plant fold inward when touched.",
+        "The Rafflesia arnoldii flower is the largest individual flower in the world, and it smells like rotting flesh.",
+        "Some trees, like oaks, can live for hundreds of years."
+      ];
+
+      // Shuffle facts array (Fisher-Yates Shuffle Algorithm)
+      for (let i = plantFacts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [plantFacts[i], plantFacts[j]] = [plantFacts[j], plantFacts[i]];
+      }
+
+      // Display the first shuffled fact
+      const factElement = document.createElement("p");
+      factElement.textContent = plantFacts[0]; 
+      factsContainer.appendChild(factElement);
+
+      // Restart animation
+      factsContainer.style.animation = 'none';
+      void factsContainer.offsetWidth; 
+      factsContainer.style.animation = 'slideIn 1s forwards'; 
+    }
+  </script>
+</body>
+</html>
